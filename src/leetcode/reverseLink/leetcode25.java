@@ -1,6 +1,7 @@
 package leetcode.reverseLink;
 // https://leetcode.cn/problems/reverse-nodes-in-k-group/description/
-//反转这一组的 k 个节点
+
+//K个节点为一组，反转这一组节点
 //反转后有三段链表：前段(pre)、反转段、后段(p0.next)
 //用个nxt存储p0下一个节点，然后通过 p0.next.next 和 p0.next 完成三段重新拼接，然后将 p0 移动到下一段起点(p0=next)，循环继续
 //不足 k 个的直接退出循环，不翻转
