@@ -6,6 +6,17 @@ package leetcode.LinkedListCycle;
 import java.util.HashSet;
 import java.util.Set;
 
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
 
 class Solution {
     // ·½·¨1£º¹þÏ£±í
