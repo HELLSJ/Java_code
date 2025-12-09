@@ -1,152 +1,66 @@
-## **一、Java 基础语法**
+![[Pasted image 20251209150054.png]]
 
-- Java 程序结构（main 方法、包、类）
-    
-- 基本数据类型与引用类型
-    
-- 类型转换（自动 / 强制）
-    
-- 运算符（算术、逻辑、位运算、三目）
-    
-- 流程控制（if、switch、while、for、break、continue）
-    
+### javac, java, javap
+**javac**：将 `.java` 源代码文件编译成 `.class` 字节码文件
+Hello.java  --(javac编译)-->  Hello.class
+命令：javac Hello.java
 
----
+**Java**：启动 **JVM（Java 虚拟机）** 并运行已编译好的 `.class` 字节码。
+Hello.class --(java运行)--> JVM执行
+命令：java Hello
 
-## **二、面向对象（OOP）**
+**javap**：反编译 `.class` 文件，用来查看 JVM 指令、类的结构、方法签名等。
 
-- 类与对象
-    
-- 构造方法、初始化顺序
-    
-- 封装、继承、多态
-    
-- `super` 与 `this`
-    
-- 方法重载 vs. 重写
-    
-- 抽象类与接口
-    
-- 内部类（成员内部类、静态内部类、匿名内部类）
-    
-- 访问修饰符（private、default、protected、public）
-    
 
----
+### **8 种基本类型**
 
-## **三、Java 常用类库（重点）**
+byte / short / int / long / float / double / char / boolean
 
-- `String`、`StringBuilder`、`StringBuffer` 区别
-    
-- 包装类（自动装箱/拆箱）
-    
-- `Math`、`Random`
-    
-- 日期与时间 API（`Date`、`Calendar`、`LocalDateTime` 等）
-    
-- 文件 IO（`File`、`InputStream`、`Reader`、`NIO` 基础）
-    
+### **包装类**
 
----
+**作用**：
+- 让基本类型拥有对象特性（用于集合、泛型等）
+- 提供大量实用方法（解析字符串、类型转换）
+- 支持自动装箱和自动拆箱
+- 可以表示 null 值（基本类型做不到）
+- 与泛型搭配必须使用包装类
+- 内部有缓存机制，提高性能（如 IntegerCache）
 
-## **四、集合框架（Collections）——重中之重**
+最特殊：
+- Integer
+- Character
+### 字节大小
 
-- Collection 与 Map 体系结构
-    
-- List：ArrayList、LinkedList
-    
-- Set：HashSet、LinkedHashSet、TreeSet
-    
-- Map：HashMap、LinkedHashMap、TreeMap、Hashtable
-    
-- 迭代器 Iterator、ListIterator
-    
-- 泛型（Generic）
-    
-- 集合线程安全问题（`Collections.synchronizedXXX`、`ConcurrentHashMap`）
-    
+- 整数：1/2/4/8
+- 小数：4/8
+- char：2
+- boolean：不固定
 
----
+### 类型转换规则
 
-## **五、异常处理机制（Exceptions）**
+- 小 → 大（自动提升）
+- 大 → 小（强制转换，可能溢出）
+- 所有 byte/short/char 运算先变成 int
 
-- 异常体系：Error / Exception / RuntimeException
-    
-- try-catch-finally
-    
-- throws 与 throw 区别
-    
-- 自定义异常
-    
+**强制类型转换（大 → 小）**
+可能损失精度或溢出：
+`double d = 3.14; int x = (int)d; // 结果为 3（小数部分丢失）`
 
----
+![[Pasted image 20251209151208.png]]
 
-## **六、Java 多线程（Thread）**
+方法就是一段可以被重复调用的代码块，用来完成某个特定功能
 
-- 线程创建方式（继承 Thread / 实现 Runnable / Callable）
-    
-- 线程生命周期
-    
-- 同步与锁：`synchronized`、代码块、方法锁、类锁
-    
-- volatile、可见性与指令重排
-    
-- 线程通信：wait/notify
-    
-- 线程池：Executor、Executors、ThreadPoolExecutor（入门）
-    
-- 并发工具包：CountDownLatch、Semaphore、Future
-    
+|特性|**重载 Overload**|**重写 Override**|
+|---|---|---|
+|发生位置|同一个类中|父类与子类之间|
+|方法名|**必须相同**|**必须相同**|
+|参数列表|**必须不同**（数量 / 类型 / 顺序）|**必须相同**|
+|返回类型|**可以不同**|**必须相同或是可以协变返回类型**|
+|访问修饰符|无要求|子类权限必须 ≥ 父类（不能更严格）|
+|异常|无要求|子类抛出的异常必须 ≤ 父类|
+|绑定类型|编译时多态（静态绑定）|运行时多态（动态绑定）|
+|目的|提高方法的灵活性|实现子类个性化行为|
+什么是重载（Overload）？**在同一个类中，方法名相同，但参数列表不同，就是重载**
+什么是重写（Override）？**子类对父类的方法进行重新实现，方法签名必须完全相同。**
 
----
-
-## **七、反射与注解**
-
-- Class 对象
-    
-- 反射创建对象（Constructor）
-    
-- 反射调用方法（Method）
-    
-- 动态代理（JDK Proxy）
-    
-- 自定义注解、元注解（@Target、@Retention）
-    
-
----
-
-## **八、Java 内存模型（JMM）基础**
-
-- 栈、堆、方法区
-    
-- 对象创建过程
-    
-- 垃圾回收器（入门）：Serial、Parallel、CMS、G1
-    
-- 类加载机制（加载、验证、准备、解析、初始化）
-    
-- 双亲委派机制
-    
-
----
-
-## **九、Java 新特性（根据需要复习）**
-
-- Lambda 表达式
-    
-- 函数式接口
-    
-- Stream 流式操作
-    
-- Optional
-    
-
----
-
-## **十、开发常识（SE 中也很实用）**
-
-- Maven 基本使用
-    
-- 单元测试 JUnit 基础
-    
-- 日志框架（Log4j、SLF4J）
+![[Pasted image 20251209152236.png]]
