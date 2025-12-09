@@ -1,6 +1,6 @@
 ## 编译细节和基础知识
 
-![](image/Pasted image 20251209150054.png)
+![img](image/Pasted image 20251209150054.png)
 
 ### javac, java, javap
 
