@@ -1,6 +1,6 @@
 ## 编译细节和基础知识
 
-![img](image/Pasted image 20251209150054.png)
+![img](image/img.png)
 
 ### javac, java, javap
 
@@ -51,7 +51,7 @@ byte / short / int / long / float / double / char / boolean
 
 ## 方法
 
-![](image/Pasted image 20251209151208.png)
+![img1](image/img1.png)
 
 方法就是一段可以被重复调用的代码块，用来完成某个特定功能
 
