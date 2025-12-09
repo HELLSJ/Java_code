@@ -1,5 +1,6 @@
 ## 编译细节和基础知识
-![[Pasted image 20251209150054.png]]
+
+![](image/Pasted image 20251209150054.png)
 
 ### javac, java, javap
 
@@ -50,7 +51,7 @@ byte / short / int / long / float / double / char / boolean
 
 ## 方法
 
-![[Pasted image 20251209151208.png]]
+![](image/Pasted image 20251209151208.png)
 
 方法就是一段可以被重复调用的代码块，用来完成某个特定功能
 
@@ -93,15 +94,14 @@ byte / short / int / long / float / double / char / boolean
 
 ## 数组
 
-![[Pasted image 20251209152236.png]]
-
+![](image/Pasted image 20251209152236.png)
 
 
 ## 面向对象
 
 **OOP有几个重要特征：封装，继承，多态**
 
-![[Pasted image 20251209160718.png]]
+![](image/Pasted image 20251209160718.png)
 
 ### 定义
 
@@ -220,13 +220,13 @@ public class Person {
 
 ### 封装
 
-![[Pasted image 20251209210149.png]]
+![](image/Pasted image 20251209210149.png)
+
 
 封装：语法上说，就是用private修饰成员变量和变量方法，表示只能在当前类中应用。将类的实现细节进行隐藏，对外只提供公开的接口
 
 
-
-![[Pasted image 20251209160746.png]]
+![](image/Pasted image 20251209160746.png)
 
 | 对比点                  | **this**                                 | **super**                   |
 | -------------------- | ---------------------------------------- | --------------------------- |
