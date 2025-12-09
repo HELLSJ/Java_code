@@ -94,14 +94,14 @@ byte / short / int / long / float / double / char / boolean
 
 ## 数组
 
-![](image/Pasted image 20251209152236.png)
+![img2](image/img2.png)
 
 
 ## 面向对象
 
 **OOP有几个重要特征：封装，继承，多态**
 
-![](image/Pasted image 20251209160718.png)
+![img3](image/img3.png)
 
 ### 定义
 
@@ -220,13 +220,13 @@ public class Person {
 
 ### 封装
 
-![](image/Pasted image 20251209210149.png)
+![](image/img5.png)
 
 
 封装：语法上说，就是用private修饰成员变量和变量方法，表示只能在当前类中应用。将类的实现细节进行隐藏，对外只提供公开的接口
 
 
-![](image/Pasted image 20251209160746.png)
+![img4](image/img4.png)
 
 | 对比点                  | **this**                                 | **super**                   |
 | -------------------- | ---------------------------------------- | --------------------------- |
