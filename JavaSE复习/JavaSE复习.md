@@ -64,3 +64,12 @@ byte / short / int / long / float / double / char / boolean
 什么是重写（Override）？**子类对父类的方法进行重新实现，方法签名必须完全相同。**
 
 ![[Pasted image 20251209152236.png]]
+
+
+
+
+![[Pasted image 20251209160718.png]]
+
+
+
+![[Pasted image 20251209160746.png]]
