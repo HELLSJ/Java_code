@@ -1,7 +1,7 @@
 # 时间复杂度 和 集合框架
-![](img-20251210-6.png)
+![](image/img-20251210-6.png)
 
-![](img-20251210-7.png)
+![](image/img-20251210-7.png)
 
 **二分查找**
 ```java
@@ -42,7 +42,7 @@ F(n-2) F(n-3)   F(n-3) F(n-4)
 长度为 **n**。
 
 # 包装类
-![](img-20251210-8.png)
+![](image/img-20251210-8.png)
 装箱（auto-boxing）：基本类型 → 包装类型
 `Integer a = 10;   // 自动转为 Integer.valueOf(10)`
 
