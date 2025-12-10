@@ -1,4 +1,4 @@
-## 编译细节和基础知识
+# 编译细节和基础知识
 
 ![img](image/img.png)
 
@@ -53,7 +53,7 @@ byte / short / int / long / float / double / char / boolean
 **静态变量**属于**类**，所有对象**共享**；
 **非静态变量（实例变量）** 属于**对象**，每个对象**独立**
 
-## 方法
+# 方法
 
 ![img1](image/img1.png)
 
@@ -97,12 +97,12 @@ byte / short / int / long / float / double / char / boolean
 如何避免？必须保证递归有明确的终止条件
 
 
-## 数组
+# 数组
 
 ![img2](image/img2.png)
 
 
-## 面向对象
+# 面向对象
 
 **OOP有几个重要特征：封装，继承，多态**
 
@@ -147,6 +147,7 @@ public class Person {
 ```
 
 ```java
+
 Person p1 = new Person(); 
 Person p2 = new Person();  
 p1.show();  // this 指向 p1 
@@ -373,9 +374,10 @@ class Person {
 
 
 
-## 抽象类和接口
+# 抽象类和接口
 ![](image/img-20251209-1.png)
 ### 抽象类
+
 
 1. 使用abstract修饰的方法称为抽象方法
 2. 使用abstract修饰的类称为抽象类
@@ -403,6 +405,14 @@ class Person {
 接口和接口：extends
 接口和类：implements
 
+| 项目        | 抽象类       | 接口               |
+| --------- | --------- | ---------------- |
+| 核心意义      | 提取共性 + 模板 | 强制实现一组能力         |
+| 是否用于 is-a | ✔ 是       | ❌ 不是             |
+| 是否能写普通方法  | ✔ 能       | ✔（default），但目的不同 |
+| 是否能写成员变量  | ✔ 能       | 只能常量             |
+| 多继承       | ❌ 不支持     | ✔ 支持             |
+
 ## 克隆和拷贝
 
 Java 中**克隆**一般指：通过 clone() 方法复制一个对象，使新对象与原对象拥有相同的数据，却是两个独立的对象。
@@ -415,11 +425,97 @@ Java 中**克隆**一般指：通过 clone() 方法复制一个对象，使新�
 内部对象也不同  
 引用链上的所有对象都各自独立
 
-## String 
+# String 
+
+String 是不可变对象（immutable）
+`String s = "abc"; s = "def"; // 实际上创建了新的对象`
+修改 String 并不是改变原对象，而是创建了新的 String。
+
 
 ![](image/img-20251210.png)
 
+### 常量池
 
-## 异常
+Java 为了**节省内存**，把所有字面量字符串放入一个全局共享区域字符串常量池（String Pool）
+### 方法
+
+**（1）字符串比较相关**
+
+- `==`：比较引用是否相同
+- `equals()`：比较内容
+- `compareTo()`：按字典序比较
+- `compareToIgnoreCase()`：忽略大小写比较
+
+**（2）查找**
+
+- `indexOf()`：从前往后查找
+- `lastIndexOf()`：从后往前查找
+
+**（3）截取**
+
+- `substring(begin)`
+- `substring(begin, end)`（前闭后开）
+
+**（4）转换相关**
+
+- `toUpperCase()` / `toLowerCase()`：大小写转换
+- `toCharArray()`：String → char[]
+- `String.valueOf()`：任意类型 → String
+- `trim()`：去除首尾空白字符
+
+**（5）替换**
+
+- `replaceAll()`：全部替换
+- `replaceFirst()`：替换第一个
+
+**（6）拆分**
+- `split(regex)`：按正则拆分字符串
+
+| 特性   | String        | StringBuilder         | StringBuffer |
+| ---- | ------------- | --------------------- | ------------ |
+| 可变性  | ❌ 不可变         | ✔ 可变                  | ✔ 可变         |
+| 线程安全 | ✔ 安全（不可变自身安全） | ❌ 不安全（没有synchronized） | ✔ 安全（同步）     |
+| 性能   | 最慢            | 最快                    | 中等           |
+| 适用场景 | 字面量、少量操作      | 单线程大量拼接/修改            | 多线程环境        |
+# 异常
+
 
 ![](image/img-20251210-1.png)
+### 大类
+![](img-20251210-5.png)
+
+1. **Throwable**：是异常体系的顶层类，其派生出两个重要的子类, Error 和 Exception
+2. **Error**：指的是**Java虚拟机无法解决的严重问题**，比如：JVM的内部错误、资源耗尽等，典型代表：StackOverflowError和OutOfMemoryError，一旦发生回力乏术。
+3. **Exception**：异常产生后**程序员可以通过代码进行处理**，使程序继续执行。比如：感冒、发烧。我们平时所说的异常就是Exception。
+	**① 继承 Exception → 受查异常** 编译器异常
+	- 必须处理（try-catch 或 throws）
+	**② 继承 RuntimeException → 非受查异常** 运行时异常
+	- 不强制处理，更常用于业务逻辑错误
+
+### throw VS throws
+
+throw —— **方法内部使用**
+
+- 手动抛出异常对象
+- 语法：`throw new XXXException(...)`
+- 抛出后方法立即结束
+- 用于业务校验（如参数非法）
+
+throws —— **方法声明使用**
+
+- 表示“本方法可能抛出异常，由调用者处理”
+- 语法：`方法名(...) throws A, B`
+- 可声明多个异常
+- Checked Exception 必须声明或捕获
+
+### 捕获异常
+
+```
+try 中抛异常 → catch 匹配？
+    ↓
+若无匹配 → 向调用者抛出（继续传播）
+    ↓
+直至 main 仍未捕获 → 程序终止 + 打印异常堆栈
+```
+
+
