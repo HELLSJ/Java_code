@@ -110,3 +110,197 @@ class Box {
 `? extends T` —— 生产者（Producer）安全，适合读
 `? super T` —— 消费者（Consumer）安全，适合写
 
+# ArrayList
+
+![](image/img-20251211.png)
+
+- List 是 **Collection 的子接口**
+- 特点：**有序、可重复、线性表结构**
+- 常见实现类：**ArrayList、LinkedList**
+
+顺序表 = 物理地址连续的存储空间 + 按顺序存储数据
+## ArrayList
+
+ArrayList 是：
+
+- 一个 **实现了 List 接口的类**
+- 底层使用 **动态数组**（可自动扩容）
+- 支持 **随机访问（实现了 RandomAccess 接口）**
+- 实现了 **Cloneable、Serializable**
+- **非线程安全**（多线程情况下使用 Vector / CopyOnWriteArrayList）
+
+扩容步骤：
+
+1. 判断是否需要扩容（minCapacity > 当前容量）
+2. 预计扩大为原来的 **1.5 倍**
+    `newCapacity = oldCapacity + oldCapacity >> 1`
+3. 如果用户需求比 1.5 倍还大 → 使用用户需求容量
+4. 检查是否超过最大数组限制（MAX_ARRAY_SIZE）
+5. 使用 `Arrays.copyOf()` 执行扩容
+
+扩容过程 =  **申请新空间 → 拷贝旧数据 → 释放旧空间**
+### 方法
+
+|方法|解释|
+|---|---|
+|`boolean add(E e)`|尾插 e|
+|`void add(int index, E element)`|将 e 插入到 index 位置|
+|`boolean addAll(Collection<? extends E> c)`|尾插 c 中的元素|
+|`E remove(int index)`|删除 index 位置元素|
+|`boolean remove(Object o)`|删除遇到的第一个 o|
+|`E get(int index)`|获取下标 index 位置元素|
+|`E set(int index, E element)`|将下标 index 位置元素设置为 element|
+|`void clear()`|清空|
+|`boolean contains(Object o)`|判断 o 是否在线性表中|
+|`int indexOf(Object o)`|返回第一个 o 所在下标|
+|`int lastIndexOf(Object o)`|返回最后一个 o 所在下标|
+|`List<E> subList(int fromIndex, int toIndex)`|截取部分 list（左闭右开）|
+
+```java
+List<String> a = new ArrayList<>();
+List<Double> b = new ArrayList<>();
+List<List<Integer>> c = new ArrayList<>();
+```
+<> 代表：请编译器使用我左边的类型参数。
+
+# 链表
+
+![](image/img-20251211-1.png)
+
+## 为什么需要 LinkedList？
+
+ArrayList 底层是 **连续数组**，存在缺陷：
+
+- 在任意位置插入、删除元素需要整体搬移 → **O(n)**，效率低
+- 适合读操作（随机访问快），不适合频繁增删
+因此引入 **LinkedList（链表结构）** 来解决这一问题。
+
+## 链表介绍
+
+链表是一种 **物理空间不连续，但逻辑顺序连续** 的数据结构。
+
+节点结构如下：
+
+`data + next (单链表) data + next + prev (双链表)`
+
+1. 无头单向非循环链表（单链表）
+
+- 结构简单
+- 常用于面试、OJ题
+- 也常用作其他数据结构的基础（如哈希桶、邻接表）
+
+2. 无头双向链表（LinkedList 的底层）
+
+- 双向指针 prev / next
+- 插入删除更高效
+- Java LinkedList 采用 **双向循环链表**
+
+![](image/img-20251211-2.png)
+
+
+| 项目        | ArrayList  | LinkedList |
+| --------- | ---------- | ---------- |
+| 底层结构      | 动态数组（连续空间） | 双向链表（不连续）  |
+| 随机访问      | O(1) 非常快   | O(n) 很慢    |
+| 插入/删除（中间） | O(n) 需要搬移  | O(1) 修改指针  |
+| 扩容        | 需要，代价高     | 无需扩容       |
+| 内存占用      | 紧凑         | 节点额外开销大    |
+| 适用场景      | 读多写少       | 写多读少、频繁插删  |
+## 方法
+
+1. 增加元素（Add）
+
+|方法|功能说明|
+|---|---|
+|`add(e)`|在链表尾部插入元素|
+|`addFirst(e)`|在链表头部插入元素|
+|`addLast(e)`|在链表尾部插入（与 add 等价）|
+2. 删除元素（Remove）
+
+|方法|功能说明|
+|---|---|
+|`remove()`|删除第一个元素（空时抛异常）|
+|`removeFirst()`|删除头部元素（空时抛异常）|
+|`removeLast()`|删除尾部元素（空时抛异常）|
+|`poll()`|删除并返回头部元素（空返回 null）|
+|`pollFirst()`|删除并返回头部元素（空返回 null）|
+|`pollLast()`|删除并返回尾部元素（空返回 null）|
+3. 获取元素（Get / Peek）
+
+|方法|功能说明|
+|---|---|
+|`get(index)`|获取指定下标元素（O(n)）|
+|`getFirst()`|获取头部元素（空时抛异常）|
+|`getLast()`|获取尾部元素（空时抛异常）|
+|`peek()`|查看头部元素（空返回 null）|
+|`peekFirst()`|查看头部元素（空返回 null）|
+|`peekLast()`|查看尾部元素（空返回 null）|
+4. 遍历（Iterator）
+
+|方法|功能说明|
+|---|---|
+|`iterator()`|返回正向迭代器|
+|`listIterator()`|返回可以双向遍历的迭代器|
+
+# 栈和队列
+
+![](image/img-20251211-3.png)
+## 栈
+
+**栈**：一种特殊的线性表，其只允许在固定的一端进行插入和删除元素操作。进行数据插入和删除操作的一端称为栈顶，另一端称为栈底。栈中的数据元素遵守后进先出LIFO（Last In First Out）的原则。
+
+**压栈**：栈的插入操作叫做进栈/压栈/入栈，入数据在栈顶。
+
+**出栈**：栈的删除操作叫做出栈。出数据在栈顶。
+
+![](image/img-20251211-4.png)
+
+| 方法                | 功能           |
+| ----------------- | ------------ |
+| `Stack()`         | 构造一个空的栈      |
+| `E push(E e)`     | 将 e 入栈，并返回 e |
+| `E pop()`         | 将栈顶元素出栈并返回   |
+| `E peek()`        | 获取栈顶元素（不出栈）  |
+| `int size()`      | 获取栈中有效元素个数   |
+| `boolean empty()` | 检测栈是否为空      |
+Stack继承了**Vector**，Vector和ArrayList类似，都是动态的顺序表，不同的是Vector是线程安全的。
+
+| 名称                  | 概念                         | 归属       |
+| ------------------- | -------------------------- | -------- |
+| **栈**               | 一种数据结构（LIFO）               | 算法结构     |
+| **虚拟机栈**            | JVM 运行时区域之一，维护线程的方法调用      | JVM 内存模型 |
+| **栈帧（Stack Frame）** | 每次方法调用产生一个栈帧，包含局部变量表、操作数栈等 | JVM 栈的元素 |
+```
+线程 Thread
+ └── 虚拟机栈 JVM Stack
+       ├── 栈帧 Frame（方法A）
+       ├── 栈帧 Frame（方法B）
+       └── 栈帧 Frame（方法C）
+```
+## 队列
+
+**队列**：只允许在一端进行插入数据操作，在另一端进行删除数据操作的特殊线性表，队列具有先进先出FIFO(First In First Out) 
+**入队列**：进行插入操作的一端称为队尾（Tail/Rear） 
+**出队列**：进行删除操作的一端称为队头
+
+在Java中，**Queue**是个接口，底层是通过链表实现的。
+
+| 方法          | 说明        |
+| ----------- | --------- |
+| `offer(e)`  | 入队        |
+| `poll()`    | 出队并返回队头元素 |
+| `peek()`    | 查看队头元素    |
+| `size()`    | 元素个数      |
+| `isEmpty()` | 是否为空      |
+### 常见面试题
+
+1. **用两个队列实现栈**
+2. **用两个栈实现队列**
+3. 判断一个序列是否可能是栈的出栈序列
+4. 最小栈设计
+5. 括号匹配
+6. 逆波兰表达式求值
+
+# 二叉树
+
+![](image/img-20251211-5.png)
