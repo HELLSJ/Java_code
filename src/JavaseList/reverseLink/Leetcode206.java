@@ -1,4 +1,4 @@
-package leetcode.reverseLink;
+package JavaseList.reverseLink;
 
 // https://leetcode.cn/problems/reverse-linked-list/
 // 简单理解：比如链表为 1→2→3。创建一个新的空链表，然后用头插法依次把节点 1,2,3 插到这个新链表的头部，就得到了链表 3→2→1，这正是反转后的链表。

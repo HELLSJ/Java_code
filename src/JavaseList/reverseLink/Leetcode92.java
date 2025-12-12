@@ -1,4 +1,4 @@
-package leetcode.reverseLink;
+package JavaseList.reverseLink;
 // https://leetcode.cn/problems/reverse-linked-list-ii/description/
 
 //1->2->3->4->5 ·­×ª 2->3->4 Îª 4->3->2

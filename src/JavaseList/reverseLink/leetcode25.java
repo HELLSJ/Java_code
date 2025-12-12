@@ -1,4 +1,4 @@
-package leetcode.reverseLink;
+package JavaseList.reverseLink;
 // https://leetcode.cn/problems/reverse-nodes-in-k-group/description/
 
 //K个节点为一组，反转这一组节点

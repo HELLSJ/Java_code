@@ -1,5 +1,5 @@
 // https://leetcode.cn/problems/linked-list-cycle-ii/description/
-package leetcode.LinkedListCycle;
+package JavaseList.LinkedListCycle;
 
 import java.util.HashSet;
 import java.util.Set;
