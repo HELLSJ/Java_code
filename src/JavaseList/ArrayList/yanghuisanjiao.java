@@ -1,4 +1,4 @@
-package JavaseList;
+package JavaseList.ArrayList;
 
 import java.util.ArrayList;
 import java.util.List;
