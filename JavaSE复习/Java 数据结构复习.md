@@ -481,6 +481,7 @@ PriorityQueue底层使用了**堆**这种数据结构，而堆实际就是在完
 直接插入排序
 动图演示如下：
 ![](image/63a9b3d35a93d9506399773b34715771.gif)
+
 我们可以设置两个指针i和j，i放在第二个元素的位置，j放在第一个元素的位置
 每次把i位置的元素提取出来放到tmp中，和j位置的元素进行比较，如果tmp的元素较小，就与j位置元素进行交换
 交换完之后j--，看看前面还有没有元素比交换后靠前的元素大，如果有就重复上述步骤，没有就把j和i挪到下一个元素
@@ -510,6 +511,55 @@ PriorityQueue底层使用了**堆**这种数据结构，而堆实际就是在完
 
 **动图如下：**  
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cbf9fc66212bb356bdd4200e720b1e07.gif#pic_center)
+
+### 快速排序
+
+#### Hoare法
+
+排序的整体流程
+
+1. 对当前区间 `[start, end]` 进行排序
+2. 如果区间中元素个数 ≤ 1，直接结束（递归终止条件）
+3. 否则：
+    - 选取一个元素作为 **基准值 pivot**
+    - 通过一次 **分区操作（partition）**：
+        - 将 pivot 放到它最终应该在的位置
+        - 同时保证：
+            - pivot 左边的元素 ≤ pivot
+            - pivot 右边的元素 ≥ pivot
+    - 对 pivot 左右两侧的子区间分别递归执行快速排序
+
+分区（partition）过程的详细思路（Hoare 思路）
+
+1. 选择区间的 **第一个元素** 作为 pivot
+2. 使用两个指针：
+    - `left` 从左向右扫描
+    - `right` 从右向左扫描
+3. 指针移动规则：
+    - `right` 向左移动，寻找 **第一个小于 pivot 的元素**
+    - `left` 向右移动，寻找 **第一个大于 pivot 的元素**
+4. 当 `left < right` 时：
+    - 交换这两个“放错位置”的元素
+5. 重复上述过程，直到 `left` 和 `right` 相遇
+6. 将 pivot 与相遇位置的元素交换
+7. 此时 pivot 位于最终正确位置，返回该位置
+
+单趟动图如下：  
+![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b7f617940f6e72125366ae1e2f7a5bc6.gif#pic_center)
+
+第一轮交换之后，6在中间，6的左边都比6小，右边都比6大
+
+![](https://i-blog.csdnimg.cn/blog_migrate/2eedd6dc158b8a1c6103d2f06a6be039.png)
+
+第二轮和第一轮一样，接着不停地递归下去
+
+![](https://i-blog.csdnimg.cn/blog_migrate/88d581bfbf24501abc653483c23e15ce.png)
+
+![](https://i-blog.csdnimg.cn/blog_migrate/c60b1a2a76d54db3e02daaf556235153.png)
+
+这些数组可以拆分并组成一棵二叉树如下图，二叉树就是左边和右边分别递归 
+
+![](https://i-blog.csdnimg.cn/blog_migrate/5cf165324baf15a6f439175d7dfe8324.png)
 # Map和Set
 
 ![](image/img-20251215-3.png)
