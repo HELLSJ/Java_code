@@ -331,6 +331,13 @@ Stack继承了**Vector**，Vector和ArrayList类似，都是动态的顺序表�
        ├── 栈帧 Frame（方法B）
        └── 栈帧 Frame（方法C）
 ```
+### 常见面试题
+
+1. 判断一个序列是否可能是栈的出栈序列 [栈的压入、弹出序列_牛客题霸_牛客网 (nowcoder.com)](https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&&tqId=11174&rp=1&ru=/activity/oj&qru=/ta/coding-interviews/question-ranking "栈的压入、弹出序列_牛客题霸_牛客网 (nowcoder.com)")
+2. 最小栈设计 [155. 最小栈 - 力扣（LeetCode）](https://leetcode.cn/problems/min-stack/description/ "155. 最小栈 - 力扣（LeetCode）")
+3. 括号匹配 [20. 有效的括号 - 力扣（LeetCode）](https://leetcode.cn/problems/valid-parentheses/description/ "20. 有效的括号 - 力扣（LeetCode）")
+4. 逆波兰表达式求值 [150. 逆波兰表达式求值 - 力扣（LeetCode）](https://leetcode.cn/problems/evaluate-reverse-polish-notation/description/ "150. 逆波兰表达式求值 - 力扣（LeetCode）")
+	1. 逆波兰表达式是一种后缀表达式。我们平常写的算式是中缀表达式 比如：9+(3-1)\*3+8/2改成后缀表达式就是 9 3 1 - 3 * + 8 2 / +
 ## 队列
 
 **队列**：只允许在一端进行插入数据操作，在另一端进行删除数据操作的特殊线性表，队列具有先进先出FIFO(First In First Out) 
@@ -350,19 +357,16 @@ Stack继承了**Vector**，Vector和ArrayList类似，都是动态的顺序表�
 
 1. **用两个队列实现栈**
 2. **用两个栈实现队列**
-3. 判断一个序列是否可能是栈的出栈序列
-4. 最小栈设计
-5. 括号匹配
-6. 逆波兰表达式求值
+3. [622. 设计循环队列 - 力扣（LeetCode）](https://leetcode.cn/problems/design-circular-queue/ "622. 设计循环队列 - 力扣（LeetCode）")
+4. [225. 用队列实现栈 - 力扣（LeetCode）](https://leetcode.cn/problems/implement-stack-using-queues/description/ "225. 用队列实现栈 - 力扣（LeetCode）")
+5. [232. 用栈实现队列 - 力扣（LeetCode）](https://leetcode.cn/problems/implement-queue-using-stacks/description/ "232. 用栈实现队列 - 力扣（LeetCode）")
 
 # 二叉树
 
 ![](image/img-20251211-5.png)
 
 
-## 一、概念类
-
-### 二叉树定义
+## 二叉树定义
 ![](image/img-20251215.png)
 
 二叉树是一个有限节点集合
@@ -370,16 +374,15 @@ Stack继承了**Vector**，Vector和ArrayList类似，都是动态的顺序表�
 - 可以为空
 - 或由 **一个根节点 + 左子树 + 右子树** 组成
 - **左右子树有顺序，不能颠倒**
+
+二叉树的存储分为**顺序存储（堆）** 和**链式存储**
 ### 满二叉树 & 完全二叉树
 
 | 类型        | 特点                   | 关键点           |
 | --------- | -------------------- | ------------- |
 | **满二叉树**  | 每一层节点数都达到最大          | 节点数 = 2^k - 1 |
 | **完全二叉树** | 最后一层可以不满，但**从左到右连续** | 堆、数组存储        |
-
-## 二、二叉树性质
-
-### 经典 5 大性质
+### 二叉树 5 大性质
 
 1. 第 i 层最多节点数
 ```
@@ -404,26 +407,24 @@ h = ⌈log2(n+1)⌉
 ```
 
 5. 完全二叉树数组下标关系
-若节点编号从 0 开始：
-- 父节点：(i - 1) / 2
-- 左孩子：2i + 1
-- 右孩子：2i + 2
-## 三、遍历方式
+	若节点编号从 0 开始：
+	- 父节点：(i - 1) / 2
+	- 左孩子：2i + 1
+	- 右孩子：2i + 2
+## 遍历方式
 
 遍历(Traversal)是指沿着某条搜索路线，依次对树中每个结点均做一次且仅做一次访问
-
 ### 四种遍历
 
 #### ① 前序遍历（NLR）
 ```
 根 → 左 → 右
 ```
-
+[144. 二叉树的前序遍历 - 力扣（LeetCode）](https://leetcode.cn/problems/binary-tree-preorder-traversal/description/ "144. 二叉树的前序遍历 - 力扣（LeetCode）")
 #### ② 中序遍历（LNR）
 ```
 左 → 根 → 右
 ```
-
 #### ③ 后序遍历（LRN）
 ```
 左 → 右 → 根
@@ -434,10 +435,24 @@ h = ⌈log2(n+1)⌉
 ```
 从上到下，从左到右（用队列）
 ```
+### 基本操作
+
+[100. 相同的树 - 力扣（LeetCode）](https://leetcode.cn/problems/same-tree/description/ "100. 相同的树 - 力扣（LeetCode）")
+[572. 另一棵树的子树 - 力扣（LeetCode）](https://leetcode.cn/problems/subtree-of-another-tree/description/ "572. 另一棵树的子树 - 力扣（LeetCode）")
+[226. 翻转二叉树 - 力扣（LeetCode）](https://leetcode.cn/problems/invert-binary-tree/ "226. 翻转二叉树 - 力扣（LeetCode）")
+[110. 平衡二叉树 - 力扣（LeetCode）](https://leetcode.cn/problems/balanced-binary-tree/description/ "110. 平衡二叉树 - 力扣（LeetCode）")
+[101. 对称二叉树 - 力扣（LeetCode）](https://leetcode.cn/problems/symmetric-tree/ "101. 对称二叉树 - 力扣（LeetCode）")
+[二叉树遍历_牛客题霸_牛客网 (nowcoder.com)](https://www.nowcoder.com/practice/4b91205483694f449f94c179883c1fef?tpId=60&&tqId=29483&rp=1&ru=/activity/oj&qru=/ta/tsing-kaoyan/question-ranking "二叉树遍历_牛客题霸_牛客网 (nowcoder.com)")
+[102. 二叉树的层序遍历 - 力扣（LeetCode）](https://leetcode.cn/problems/binary-tree-level-order-traversal/description/ "102. 二叉树的层序遍历 - 力扣（LeetCode）")
+[236. 二叉树的最近公共祖先 - 力扣（LeetCode）](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/description/ "236. 二叉树的最近公共祖先 - 力扣（LeetCode）")
+[105. 从前序与中序遍历序列构造二叉树 - 力扣（LeetCode）](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/ "105. 从前序与中序遍历序列构造二叉树 - 力扣（LeetCode）")
+[106. 从中序与后序遍历序列构造二叉树 - 力扣（LeetCode）](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/ "106. 从中序与后序遍历序列构造二叉树 - 力扣（LeetCode）")
+[606. 根据二叉树创建字符串 - 力扣（LeetCode）](https://leetcode.cn/problems/construct-string-from-binary-tree/description/ "606. 根据二叉树创建字符串 - 力扣（LeetCode）")
+[144. 二叉树的前序遍历 - 力扣（LeetCode）](https://leetcode.cn/problems/binary-tree-preorder-traversal/description/ "144. 二叉树的前序遍历 - 力扣（LeetCode）")
 
 # 优先级队列
 
-![[img-20251215-1.png]]
+![](image/img-20251215-1.png)
 数据结构应该提供两个最基本的操作，一个是返回最高优先级对象，一个是添加新的对象。这种数据结构就是优先级队列(Priority Queue)
 
 PriorityQueue底层使用了**堆**这种数据结构，而堆实际就是在完全二叉树的基础上进行了一些调整。
@@ -445,13 +460,34 @@ PriorityQueue底层使用了**堆**这种数据结构，而堆实际就是在完
 **堆**的性质：
 - 堆中某个节点的值总是不大于或不小于其父节点的值；
 - 堆总是一棵完全二叉树。
+注意：对于非完全二叉树，则不适合使用顺序方式进行存储，因为为了**能够还原二叉树，空间中必须要存储空节点，就会导致空间利用率比较低。**
 
+**大根堆：** 每一棵树的根结点总是比左右子节点大
+**小根堆：** 每一棵树的根结点的值总是比左右子节点小，不考虑左右子节点谁大谁小
+**堆的存储**：存储方式采用层序遍历的方式把二叉树的元素一一放到数组里面
+
+### 堆的操作
+
+1. 如何将普通数组转换成堆（怎么计算这个堆的时间复杂度?）
+2. 堆的插入
+3. 堆的删除
+4. [面试题 17.14. 最小K个数 - 力扣（LeetCode）](https://leetcode.cn/problems/smallest-k-lcci/description/ "面试题 17.14. 最小K个数 - 力扣（LeetCode）")
+5. 堆排序
 # 排序
 
-![[img-20251215-2.png]]
+![](image/img-20251215-2.png)
+### 直接插入排序
+
+直接插入排序
+动图演示如下：
+![](image/63a9b3d35a93d9506399773b34715771.gif)
+我们可以设置两个指针i和j，i放在第二个元素的位置，j放在第一个元素的位置
+每次把i位置的元素提取出来放到tmp中，和j位置的元素进行比较，如果tmp的元素较小，就与j位置元素进行交换
+交换完之后j--，看看前面还有没有元素比交换后靠前的元素大，如果有就重复上述步骤，没有就把j和i挪到下一个元素
+
 
 # Map和Set
 
-![[img-20251215-3.png]]
+![](image/img-20251215-3.png)
 # 反射枚举lambda
-![[img-20251215-4.png]]
+![](image/img-20251215-4.png)
