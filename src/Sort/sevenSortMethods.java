@@ -1,6 +1,7 @@
 package Sort;
 
-public class eightSortMethods {
+public class sevenSortMethods {
+    //插入排序
     public static void insertSort(int[] array){
         for (int i = 1; i < array.length; i++) {
             int tmp = array[i];
@@ -89,7 +90,40 @@ public class eightSortMethods {
             }
         }
     }
-    
+
+    //堆排序
+    private static void createHeap(int[] array){
+        for (int parent = (array.length-1-1)/2; parent >=0 ; parent--) {
+            siftDown(array, parent, array.length);
+        }
+    }
+
+    private static void siftDown(int[] array, int parent, int length) {
+        int child = 2* parent + 1;
+        while(child<length){
+            if(child+1<length && array[child]<array[child+1]){
+                child++;
+            }
+            if (array[child]>array[parent]){
+                swap(array, child, parent);
+                parent=child;
+                child=2*parent;
+            }else{
+                break;
+            }
+        }
+    }
+
+    public static void heapSort(int[] array){
+        createHeap(array);
+        int end = array.length-1;
+        while(end>0){
+            swap(array,0,end);
+            siftDown(array,0,end);
+            end--;
+        }
+    }
+
     //快速排序
     public static void quickSort(int[] array){
         quick(array,0,array.length-1);
@@ -126,5 +160,69 @@ public class eightSortMethods {
         swap(array,i,left);
         return left;
     }
+    //
+    private static int partitionHole(int[] array, int left, int right){
+        int tmp = array[left];
+        //整个的循环，要求left和right相遇之后能交换数字
+        while(left<right){
+            //单独的循环，因为如果right--一直找不到比tmp大的数，而right不能一直减到最左边的边界
+            //所以需要再规定依次left<right
+            while(left<right && array[right] >= tmp){
+                right--;
+            }
+            array[left] = array[right];
+            while (left<right && array[left] <= tmp){
+                left++;
+            }
+            array[right] = array[left];
+            swap(array,left,right);
+        }
+        array[left] = tmp;
+        return left;
+    }
 
+    //归并排序
+    //分解
+    public static void mergeSort(int[] array){
+        mergeSortFun(array,0,array.length-1);
+    }
+    private static void mergeSortFun(int[] array, int start, int end){
+        if (start>=end){
+            return;
+        }
+        int mid = (start+end)/2;
+        mergeSortFun(array, start, mid);
+        mergeSortFun(array, mid+1, end);
+        merge(array, start, mid, end);
+    }
+    //归并
+    //创建一个tmpArr数组记录排序好的数字
+    //先进行s1和s2两个元素的比较，s2的元素比较小先扔到tmpArr里面，s2++
+    //接着再比较s2和s1，发现s1更小，扔到tmpArr里面，s1++
+    //后面的步骤差不多，比较s1和s2两个元素，谁小谁放进数组
+    private static void merge(int[] array, int left, int mid, int right){
+        int start1 = left;
+        int end1 = mid;
+        int start2 = mid+1;
+        int end2 = right;
+        int[] tmpArr = new int[right-left+1];
+        int k = 0;
+        while(start1<=end1 && start2<=end2){
+            if(array[start1]<=array[start2]){
+                tmpArr[k++] = array[start1++];
+            }else{
+                tmpArr[k++] = array[start2++];
+            }
+        }
+        while(start1<=end1){
+            tmpArr[k++] = array[start1++];
+        }
+        while(start2<=end2){
+            tmpArr[k++] = array[start2++];
+        }
+
+        for (int i = 0; i < tmpArr.length; i++) {
+            array[i+left] = tmpArr[i];
+        }
+    }
 }
