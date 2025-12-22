@@ -425,25 +425,26 @@ object2.notify();
 
 此时是无法唤醒的
 
+## 多线程案例
 
-## 阻塞队列
+### 一、阻塞队列
 
 特点：1.线程安全；2.阻塞
 
 如果一个已经满了的队列进行入队列，此时入队列操作就会阻塞，一直阻塞到队列不满之后
 
 如果一个已经空的队列进行出队列，出队列操作就会阻塞，一直阻塞到队列有元素为止
-### 一、生产者-消费者模型（Producer-Consumer Pattern）
+#### 一、生产者-消费者模型（Producer-Consumer Pattern）
 
 核心思想：**生产者负责生成数据，消费者负责处理数据，中间用一个“队列”缓冲，实现解耦和异步。**
-#### 1. 解耦合
+##### 1. 解耦合
 
 原来服务器问题（耦合低，B或者C服务器挂了A就寄了）
 ![](image/img-20251222-6.png)
 加个阻塞队列，这个阻塞队列不是简单的数据结构，而是基于这个数据结构实现的服务器程序，又被部署到单独的主机上
 ![](image/img-20251222-5.png)
 
-#### 2. 削峰填谷（Smooth Traffic Peaks）
+##### 2. 削峰填谷（Smooth Traffic Peaks）
 
 问题：请求突增时服务器容易“挂”
 
@@ -461,3 +462,135 @@ object2.notify();
 
 这就是“削峰填谷”：**把尖峰流量平滑成匀速处理流**。
 
+### 二、单例模式
+
+单例 = 单个实例（对象）
+
+某个类在一个进程中只应该创建出一个实例（原则上不应该有多个）
+
+#### 饿汉模式（Eager Initialization）
+
+- **类加载时就创建实例**，不管是否使用。
+- “饿汉” = 非常“迫切”，一启动就创建。
+```java
+public class Singleton {
+    // 1. 私有构造函数，防止外部 new
+    private Singleton() {}
+
+    // 2. 静态成员变量，在类加载时初始化
+    private static final Singleton instance = new Singleton();
+
+    // 3. 公共静态方法获取实例
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+```
+
+#### 懒汉模式（Lazy Initialization）
+
+- **首次调用 `getInstance()` 时才创建实例**。
+- “懒汉” = 懒得早创建，等到真正需要时再创建。
+
+```java
+public class SingletonLazy {
+    // 1. 使用 volatile 保证可见性和禁止指令重排序
+    private static volatile SingletonLazy instance = null;
+
+    // 2. 私有构造函数，防止外部 new
+    private SingletonLazy() {}
+
+    // 3. 公共静态方法获取实例（双重检查）
+    public static SingletonLazy getInstance() {
+        if (instance == null) { //外层的 if 就是判定下看当前是否已经把 instance 实例创建出来了
+            synchronized (SingletonLazy.class) {
+                if (instance == null) { // 当多线程⾸次调⽤ getInstance, ⼤家可能都发现 instance 为 null, 于是⼜继续往下执⾏来竞争锁, 其中竞争成功的线程, 再完成创建实例的操作.当这个实例创建完了之后, 其他竞争到锁的线程就被⾥层 if 挡住了. 也就不会继续创建其他实例.
+                    instance = new SingletonLazy(); // volatile 保证这里无重排序问题
+                }
+            }
+        }
+        return instance;
+    }
+}
+```
+
+### 三、定时器
+
+**定时器的作用**
+
+- 在**指定时间点**自动执行某段逻辑
+- 典型场景：博客定时发布、延迟任务执行等
+
+**基本用法思想**
+
+- 定义一个 `Timer`
+- 向 Timer 中添加多个任务
+- 每个任务都携带一个**执行时间**
+
+定时器的构成
+
+- ⼀个带优先级队列(不要使⽤ PriorityBlockingQueue, 容易死锁!)
+- 队列中的每个元素是⼀个 Task 对象.
+- Task 中带有⼀个时间属性, 队⾸元素就是即将要执⾏的任务
+- 同时有⼀个 worker 线程⼀直扫描队⾸元素, 看队⾸元素是否需要执⾏
+
+### 四、线程池
+
+池是什么？
+
+池就相当于一个共享资源，是对资源的整合和调配，节省存储空间，当需要的时候可以直接在池中取，用完之后再还回去。比如，如果你喝水，你可以拿杯子去水龙头接。如果很多人喝水，那就只能排队去接。
+
+线程池：把要使用的线程提前创建好，用完了也不要直接释放而是放到池子里备下次使用，能够节省创建/销毁线程的开销
+#### 线程复用
+
+每一个 Thread 的类都有一个 start 方法。 当调用 start 启动线程时 Java 虚拟机会调用该类的 run方法。 那么该类的 run() 方法中就是调用了 Runnable 对象的 run() 方法。 我们可以继承重写Thread 类，在其 start 方法中添加不断循环调用传递过来的 Runnable 对象。 这就是线程池的实现原理。循环方法中不断获取 Runnable 是用 Queue 实现的，在获取下一个 Runnable 之前可以是阻塞的。
+#### 线程池的组成
+
+一般的线程池主要分为以下 4 个组成部分
+
+1. 线程池管理器：用于创建并管理线程池
+2. 工作线程：线程池中的线程
+3. 任务接口：每个任务必须实现的接口，用于工作线程调度其运行
+4. 任务队列：用于存放待处理的任务，提供一种缓冲机制
+
+Java 中的线程池是通过 Executor 框架实现的，该框架中用到了 Executor，Executors，
+ExecutorService，ThreadPoolExecutor ，Callable 和 Future、FutureTask 这几个类。
+#### 构造方法
+ThreadPoolExecutor 的构造方法如下：
+
+```java
+public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize, long keepAliveTime,
+TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+	this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
+Executors.defaultThreadFactory(), defaultHandler);
+}
+```
+1. corePoolSize：指定了线程池中的线程数量。
+2. maximumPoolSize：指定了线程池中的最大线程数量。
+3. kepAliveTime：当前线程池数量超过 corePoolSize 时，多余的空闲线程的存活时间，即多 次时间内会被销毁。
+4. unit：keepAliveTime 的单位。
+5. workQueue：任务队列，被提交但尚未被执行的任务。
+6. threadFactory：线程工厂，用于创建线程，一般用默认的即可。
+7. handler：拒绝策略，当任务太多来不及处理，如何拒绝任务。
+#### 拒绝策略
+
+线程池中的线程已经用完了，无法继续为新任务服务，同时，等待队列也已经排满了，再也
+塞不下新任务了。这时候我们就需要拒绝策略机制合理的处理这个问题。
+
+JDK 内置的拒绝策略如下：
+
+1. AbortPolicy ： 直接抛出异常，阻止系统正常运行。
+2. CallerRunsPolicy ： 只要线程池未关闭，该策略直接在调用者线程中，运行当前被丢弃的任务。显然这样做不会真的丢弃任务，但是，任务提交线程的性能极有可能会急剧下降。
+3. DiscardOldestPolicy ： 丢弃最老的一个请求，也就是即将被执行的一个任务，并尝试再次提交当前任务。
+4. DiscardPolicy ： 该策略默默地丢弃无法处理的任务，不予任何处理。如果允许任务丢失，这是最好的一种方案。以上内置拒绝策略均实现了 RejectedExecutionHandler 接口，若以上策略仍无法满足实际需要，完全可以自己扩展 RejectedExecutionHandler 接口。
+
+#### Java 线程池工作过程
+
+1. 线程池刚创建时，里面没有一个线程。任务队列是作为参数传进来的。不过，就算队列里面有任务，线程池也不会马上执行它们。
+2. 当调用 execute() 方法添加一个任务时，线程池会做如下判断：
+	a) 如果正在运行的线程数量小于 corePoolSize，那么马上创建线程运行这个任务；
+	b) 如果正在运行的线程数量大于或等于 corePoolSize，那么将这个任务放入队列；
+	c) 如果这时候队列满了，而且正在运行的线程数量小于 maximumPoolSize，那么还是要创建非核心线程立刻运行这个任务；
+	d) 如果队列满了，而且正在运行的线程数量大于或等于 maximumPoolSize，那么线程池会抛出异常 RejectExecutionException。
+3. 当一个线程完成任务时，它会从队列中取下一个任务来执行。
+4. 当一个线程无事可做，超过一定的时间（keepAliveTime）时，线程池会判断，如果当前运行的线程数大于 corePoolSize，那么这个线程就被停掉。所以线程池的所有任务完成后，它最终会收缩到 corePoolSize 的大小。
