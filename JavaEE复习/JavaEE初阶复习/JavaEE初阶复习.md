@@ -132,3 +132,4 @@ public class ThreadDemo4 {
 }
 ```
 
+#### 4.  第四种方法：实现Runnable，重写run，实现匿名内部类
